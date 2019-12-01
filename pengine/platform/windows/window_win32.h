@@ -13,12 +13,11 @@ namespace PEngine
         ~Win32Window() = default;
 
         bool OnUpdate() override;
+        void OnDestroy() override;
 
     private:
         virtual void Init(const WindowProps& props);
-
-        HWND m_handle{};
     };
 
-    LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+    LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 }

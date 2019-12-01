@@ -18,17 +18,11 @@ namespace PEngine
 
         while (m_running)
         {
-            if (!m_window->OnUpdate())
-            {
-                m_running = false;
-            }
+            glClearColor(1, 0, 1, 1);
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            m_running = m_window->OnUpdate();
         }
-        //if (!gladLoadGL())
-        //{
-        //    printf("Something went wrong!\n");
-        //    exit(-1);
-        //}
-        //printf("OpenGL %d.%d\n", GLVersion.major, GLVersion.minor);
 
         std::cout << "Run end" << std::endl;
     }

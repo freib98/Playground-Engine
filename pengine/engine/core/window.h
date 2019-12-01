@@ -25,6 +25,7 @@ namespace PEngine
         virtual ~Window() = default;
 
         virtual bool OnUpdate() = 0;
+        virtual void OnDestroy() = 0;
 
         // virtual unsigned int GetWidth() const = 0;
         // virtual unsigned int GetHeight() const = 0;
