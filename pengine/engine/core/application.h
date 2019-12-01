@@ -13,12 +13,14 @@ namespace PEngine
     {
     public:
         Application();
-        virtual ~Application() {}
+        virtual ~Application() = default;
 
         void Run();
 
     private:
         std::unique_ptr<Window> m_window;
+
+        bool m_running = true;
     };
 
     Application* CreateApplication();

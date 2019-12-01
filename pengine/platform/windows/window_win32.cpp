@@ -22,6 +22,7 @@ namespace PEngine
         wc.lpfnWndProc = WindowProc;
         wc.hInstance = hInstance;
         wc.lpszClassName = className;
+        //wc.style = CS_OWNDC;
 
         RegisterClass(&wc);
 
@@ -45,16 +46,26 @@ namespace PEngine
         }
 
         ShowWindow(hwnd, SW_SHOW);
+    }
 
+    bool Win32Window::OnUpdate()
+    {
         MSG msg = {};
-        while (GetMessage(&msg, nullptr, 0, 0))
+        while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
+            if (msg.message == WM_QUIT)
+            {
+                return false;
+            }
+
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
+
+        return true;
     }
 
-    LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+    LRESULT CALLBACK WindowProc(const HWND hwnd, const UINT uMsg, const WPARAM wParam, const LPARAM lParam)
     {
         switch (uMsg)
         {

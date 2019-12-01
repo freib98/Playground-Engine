@@ -12,10 +12,12 @@ namespace PEngine
         Win32Window(const WindowProps& props);
         ~Win32Window() = default;
 
+        bool OnUpdate() override;
+
     private:
         virtual void Init(const WindowProps& props);
 
-        HWND m_Handle{};
+        HWND m_handle{};
     };
 
     LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
