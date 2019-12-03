@@ -9,19 +9,21 @@ namespace PEngine
 {
     Application::Application()
     {
-        m_window = std::unique_ptr<Window>(Window::Create());
+        _window = std::unique_ptr<Window>(Window::Create());
     }
 
     void Application::Run()
     {
+        std::cout << "OpenGL " << GLVersion.major << "." << GLVersion.minor << std::endl;
+
         std::cout << "Run start" << std::endl;
 
-        while (m_running)
+        while (_running)
         {
-            glClearColor(1, 0, 1, 1);
+            glClearColor(0.129f, 0.586f, 0.949f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            m_running = m_window->OnUpdate();
+            _running = _window->OnUpdate();
         }
 
         std::cout << "Run end" << std::endl;

@@ -18,9 +18,9 @@ namespace PEngine
         void Run();
 
     private:
-        std::unique_ptr<Window> m_window;
+        std::unique_ptr<Window> _window;
 
-        bool m_running = true;
+        bool _running = true;
     };
 
     Application* CreateApplication();
