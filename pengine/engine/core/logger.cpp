@@ -13,7 +13,7 @@ void PEngine::Logger::Init()
     _coreLogger->set_level(spdlog::level::debug);
 }
 
-std::shared_ptr<spdlog::logger> PEngine::Logger::GetCoreLogger()
+std::shared_ptr<spdlog::logger>& PEngine::Logger::GetCoreLogger()
 {
     return _coreLogger;
 }
