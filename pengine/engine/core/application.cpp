@@ -1,22 +1,23 @@
 #include "application.h"
 
-#include <iostream>
 #include <glad/glad.h>
 
-#include "platform/windows/window_win32.h"
+#include "logger.h"
 
 namespace PEngine
 {
     Application::Application()
     {
+        Logger::Init();
+
         _window = std::unique_ptr<Window>(Window::Create());
     }
 
     void Application::Run()
     {
-        std::cout << "OpenGL " << GLVersion.major << "." << GLVersion.minor << std::endl;
+        PENGINE_INFO("OpenGL {}.{}", GLVersion.major, GLVersion.minor);
 
-        std::cout << "Run start" << std::endl;
+        PENGINE_INFO("--- Run start ---");
 
         while (_running)
         {
@@ -26,6 +27,6 @@ namespace PEngine
             _running = _window->OnUpdate();
         }
 
-        std::cout << "Run end" << std::endl;
+        PENGINE_INFO("--- Run end ---");
     }
 }

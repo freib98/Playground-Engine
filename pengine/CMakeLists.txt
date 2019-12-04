@@ -15,4 +15,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC "")
 set(root ${CMAKE_CURRENT_SOURCE_DIR})
 source_group(TREE ${root} FILES ${SRC_ENGINE})
 
+target_link_libraries(${PROJECT_NAME} PUBLIC spdlog)
 target_link_libraries(${PROJECT_NAME} PUBLIC glad)
