@@ -1,5 +1,5 @@
 #pragma once
 
-#include "engine/core/application.h"
+#include "core/application.h"
 
-#include "engine/core/entry_point.h"
+#include "core/entry_point.h"

@@ -8,20 +8,6 @@ set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # ------------------------------------------------------------
-# Add glad
-# ------------------------------------------------------------
-add_subdirectory(dep/spdlog)
-
-set_target_properties(spdlog PROPERTIES FOLDER dep)
-
-# ------------------------------------------------------------
-# Add glad
-# ------------------------------------------------------------
-add_subdirectory(dep/glad)
-
-set_target_properties(glad PROPERTIES FOLDER dep)
-
-# ------------------------------------------------------------
 # Add playground engine
 # ------------------------------------------------------------
 add_subdirectory(pengine)
