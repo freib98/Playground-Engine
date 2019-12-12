@@ -15,7 +15,10 @@ namespace PEngine
 
     void Application::Run()
     {
-        PENGINE_INFO("OpenGL {}.{}", GLVersion.major, GLVersion.minor);
+        PENGINE_INFO("OpenGL Info:");
+        PENGINE_INFO("  Vendor: {}", glGetString(GL_VENDOR));
+        PENGINE_INFO("  Renderer: {}", glGetString(GL_RENDERER));
+        PENGINE_INFO("  Version: {}", glGetString(GL_VERSION));
 
         PENGINE_INFO("--- Run start ---");
 

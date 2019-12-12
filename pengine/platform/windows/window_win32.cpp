@@ -19,6 +19,8 @@ namespace PEngine
     bool Win32Window::OnUpdate()
     {
         SwapBuffers(GetDC(_hwnd));
+        // Todo - investigate SwapBuffers without glFinish
+        glFinish();
 
         MSG msg = {};
         while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -29,7 +31,7 @@ namespace PEngine
             }
 
             TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            DispatchMessageW(&msg);
         }
 
         return true;
@@ -203,6 +205,11 @@ namespace PEngine
         const auto rc = wglCreateContextAttribsARB(dc, nullptr, contextAttributes);
 
         wglMakeCurrent(dc, rc);
+
+        if (wglSwapIntervalEXT)
+        {
+            wglSwapIntervalEXT(1);
+        }
 
         gladLoadGL();
     }
