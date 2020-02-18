@@ -1,5 +1,4 @@
 #include <pengine.h>
-#include <glad/glad.h>
 
 class BasicTriangle : public PEngine::Application
 {

@@ -2,7 +2,7 @@
 
 #include <windows.h>
 
-#include "core/window.h"
+#include "core/Window.h"
 
 namespace PEngine
 {

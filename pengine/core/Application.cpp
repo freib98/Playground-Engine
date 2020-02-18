@@ -1,8 +1,8 @@
-#include "application.h"
+#include "Application.h"
 
 #include <glad/glad.h>
 
-#include "logger.h"
+#include "Logger.h"
 
 namespace PEngine
 {

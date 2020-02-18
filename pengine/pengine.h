@@ -1,5 +1,6 @@
 #pragma once
 
-#include "core/application.h"
+#include "core/EntryPoint.h"
+#include "core/Application.h"
 
-#include "core/entry_point.h"
+#include "glad/glad.h"

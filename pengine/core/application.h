@@ -5,11 +5,11 @@
 
 #include <memory>
 
-#include "window.h"
+#include "Window.h"
 
 namespace PEngine
 {
-    class __declspec(dllexport) Application
+    class Application
     {
     public:
         Application();

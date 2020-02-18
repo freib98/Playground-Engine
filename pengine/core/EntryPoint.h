@@ -1,6 +1,6 @@
 #pragma once
 
-#include "application.h"
+#include "Application.h"
 
 extern PEngine::Application* PEngine::CreateApplication();
 

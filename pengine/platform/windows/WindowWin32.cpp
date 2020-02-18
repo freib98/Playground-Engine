@@ -1,4 +1,4 @@
-#include "window_win32.h"
+#include "WindowWin32.h"
 
 #include <glad/glad_wgl.h>
 
