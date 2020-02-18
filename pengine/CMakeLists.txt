@@ -17,7 +17,7 @@ file(GLOB_RECURSE SRC_ENGINE
     renderer/*.h
     pengine.h)
 
-add_library(${PROJECT_NAME} SHARED ${SRC_ENGINE})
+add_library(${PROJECT_NAME} STATIC ${SRC_ENGINE})
 target_include_directories(${PROJECT_NAME} PUBLIC "")
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SRC_ENGINE})

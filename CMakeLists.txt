@@ -15,6 +15,10 @@ add_subdirectory(pengine)
 # ------------------------------------------------------------
 # Add samples
 # ------------------------------------------------------------
-add_subdirectory(samples)
+add_subdirectory(samples/BasicTriangle)
+add_subdirectory(samples/SnakeOpenGL)
 
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT sample)
+set_target_properties(BasicTriangle PROPERTIES FOLDER Samples)
+set_target_properties(SnakeOpenGL PROPERTIES FOLDER Samples)
+
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT SnakeOpenGL)

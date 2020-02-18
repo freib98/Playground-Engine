@@ -17,6 +17,8 @@ namespace PEngine
 
         void Run();
 
+        virtual void Update() = 0;
+
     private:
         std::unique_ptr<Window> _window;
 

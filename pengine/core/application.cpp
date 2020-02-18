@@ -24,8 +24,7 @@ namespace PEngine
 
         while (_running)
         {
-            glClearColor(0.129f, 0.586f, 0.949f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
+            this->Update();
 
             _running = _window->OnUpdate();
         }
