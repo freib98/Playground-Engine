@@ -1,5 +1,6 @@
+#define PENGINE_OPENGL_API
+
 #include <pengine.h>
-#include <glad/glad.h>
 
 class SnakeOpenGl : public PEngine::Application
 {
@@ -12,7 +13,6 @@ public:
 
 void SnakeOpenGl::Update()
 {
-
 }
 
 PEngine::Application* PEngine::CreateApplication()

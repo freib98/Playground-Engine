@@ -22,12 +22,13 @@ namespace PEngine
 
         PENGINE_INFO("--- Run start ---");
 
-        while (_running)
-        {
-            this->Update();
+        this->Update();
+        //while (_running)
+        //{
+        //    this->Update();
 
-            _running = _window->OnUpdate();
-        }
+        //    _running = _window->OnUpdate();
+        //}
 
         PENGINE_INFO("--- Run end ---");
     }

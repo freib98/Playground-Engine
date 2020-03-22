@@ -3,4 +3,6 @@
 #include "core/EntryPoint.h"
 #include "core/Application.h"
 
-#include "glad/glad.h"
+#ifdef PENGINE_OPENGL_API
+    #include "glad/glad.h"
+#endif

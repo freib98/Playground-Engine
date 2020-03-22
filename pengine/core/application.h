@@ -19,6 +19,11 @@ namespace PEngine
 
         virtual void Update() = 0;
 
+    protected:
+        [[nodiscard]] bool PEngineIsRunning() const { return _running; }
+
+        void PEngineSwap() { _running = _window->OnUpdate(); }
+
     private:
         std::unique_ptr<Window> _window;
 

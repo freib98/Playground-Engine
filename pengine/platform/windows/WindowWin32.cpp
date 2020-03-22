@@ -13,17 +13,25 @@ namespace PEngine
 
     Win32Window::Win32Window(const WindowProps& props)
     {
-        Win32Window::Init(props);
+        RegisterWindowClass();
+
+        CreateHelperWindow();
+
+        CreateNativeWindow(props);
+
+        InitWgl();
+
+        CreateContextWgl();
+
+        ShowWindow(_hwnd, SW_SHOW);
     }
 
     bool Win32Window::OnUpdate()
     {
-        SwapBuffers(GetDC(_hwnd));
-        // Todo - investigate SwapBuffers without glFinish
-        glFinish();
+        SwapBuffers(_dc);
 
         MSG msg = {};
-        while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+        while (PeekMessageW(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (msg.message == WM_QUIT)
             {
@@ -41,26 +49,12 @@ namespace PEngine
     {
     }
 
-    void Win32Window::Init(const WindowProps& props)
-    {
-        RegisterWindowClass();
-
-        CreateHelperWindow();
-
-        CreateNativeWindow(props);
-
-        InitWgl();
-
-        CreateContextWgl();
-
-        ShowWindow(_hwnd, SW_SHOW);
-    }
-
     void Win32Window::RegisterWindowClass() const
     {
         WNDCLASSEXW wc = {};
         wc.cbSize = sizeof(wc);
         wc.style = CS_OWNDC;
+        wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
         wc.lpfnWndProc = static_cast<WNDPROC>(WindowProc);
         wc.hInstance = GetModuleHandleW(nullptr);
         wc.lpszClassName = _wndClassName;
@@ -89,7 +83,6 @@ namespace PEngine
         ShowWindow(_helperHwnd, SW_HIDE);
 
         MSG msg;
-
         while (PeekMessageW(&msg, _helperHwnd, 0, 0, PM_REMOVE))
         {
             TranslateMessage(&msg);
@@ -115,6 +108,8 @@ namespace PEngine
             GetModuleHandleW(nullptr),
             nullptr);
 
+        _dc = GetDC(_hwnd);
+
         // Todo - check hwnd
     }
 
@@ -124,7 +119,7 @@ namespace PEngine
 
         const auto dc = GetDC(_helperHwnd);
 
-        PIXELFORMATDESCRIPTOR pfd;
+        PIXELFORMATDESCRIPTOR pfd = {};
         pfd.nSize = sizeof(pfd);
         pfd.nVersion = 1;
         pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
@@ -150,16 +145,11 @@ namespace PEngine
         wglMakeCurrent(pdc, prc);
         wglDeleteContext(rc);
 
-        ReleaseDC(_helperHwnd, dc);
-        //DestroyWindow(_helperHwnd);
-
         // Todo - check all function return values
     }
 
     void Win32Window::CreateContextWgl() const
     {
-        const auto dc = GetDC(_hwnd);
-
         // clang-format off
         const int attributesAttribs[] = {
             WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
@@ -180,7 +170,7 @@ namespace PEngine
         int pixelFormat;
         UINT numFormats;
 
-        const auto status = wglChoosePixelFormatARB(dc, attributesAttribs, nullptr, 1, &pixelFormat, &numFormats);
+        const auto status = wglChoosePixelFormatARB(_dc, attributesAttribs, nullptr, 1, &pixelFormat, &numFormats);
 
         if (status == false || numFormats == 0)
         {
@@ -189,8 +179,8 @@ namespace PEngine
         }
 
         PIXELFORMATDESCRIPTOR pfd;
-        DescribePixelFormat(dc, pixelFormat, sizeof(pfd), &pfd);
-        SetPixelFormat(dc, pixelFormat, &pfd);
+        DescribePixelFormat(_dc, pixelFormat, sizeof(pfd), &pfd);
+        SetPixelFormat(_dc, pixelFormat, &pfd);
 
         // clang-format off
         GLint contextAttributes[] = {
@@ -202,16 +192,13 @@ namespace PEngine
         };
         // clang-format on
 
-        const auto rc = wglCreateContextAttribsARB(dc, nullptr, contextAttributes);
+        const auto rc = wglCreateContextAttribsARB(_dc, nullptr, contextAttributes);
 
-        wglMakeCurrent(dc, rc);
-
-        if (wglSwapIntervalEXT)
-        {
-            wglSwapIntervalEXT(1);
-        }
+        wglMakeCurrent(_dc, rc);
 
         gladLoadGL();
+
+        wglSwapIntervalEXT(1);
     }
 
     std::wstring Win32Window::WideStringFromUtf8(const std::string& source)
@@ -232,9 +219,10 @@ namespace PEngine
     {
         switch (uMsg)
         {
-        case WM_DESTROY:
+        case WM_DESTROY: {
             PostQuitMessage(0);
             break;
+        }
         default:
             return DefWindowProcW(hWnd, uMsg, wParam, lParam);
         }

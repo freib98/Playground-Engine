@@ -16,8 +16,6 @@ namespace PEngine
         void OnDestroy() override;
 
     private:
-        virtual void Init(const WindowProps& props);
-
         void RegisterWindowClass() const;
         void CreateHelperWindow();
         void CreateNativeWindow(const WindowProps& props);
@@ -31,6 +29,8 @@ namespace PEngine
 
         HWND _hwnd{};
         HWND _helperHwnd{};
+
+        HDC _dc;
     };
 
     LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
