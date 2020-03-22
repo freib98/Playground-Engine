@@ -49,6 +49,11 @@ namespace PEngine
     {
     }
 
+    void Win32Window::EnableVsync()
+    {
+        wglSwapIntervalEXT(1);
+    }
+
     void Win32Window::RegisterWindowClass() const
     {
         WNDCLASSEXW wc = {};
@@ -197,8 +202,6 @@ namespace PEngine
         wglMakeCurrent(_dc, rc);
 
         gladLoadGL();
-
-        wglSwapIntervalEXT(1);
     }
 
     std::wstring Win32Window::WideStringFromUtf8(const std::string& source)

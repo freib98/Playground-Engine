@@ -20,6 +20,8 @@ private:
 
 void BasicTriangle::Update()
 {
+    PEngineEnableVsync();
+
     // clang-format off
 	float positions[] = {
 		-0.5f, -0.5f,

@@ -15,6 +15,8 @@ namespace PEngine
         bool OnUpdate() override;
         void OnDestroy() override;
 
+        void EnableVsync() override;
+
     private:
         void RegisterWindowClass() const;
         void CreateHelperWindow();

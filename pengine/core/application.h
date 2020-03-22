@@ -24,6 +24,8 @@ namespace PEngine
 
         void PEngineSwap() { _running = _window->OnUpdate(); }
 
+        void PEngineEnableVsync() const { _window->EnableVsync(); }
+
     private:
         std::unique_ptr<Window> _window;
 
